@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/images/aircraft_2.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/aircraft_explode_4.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/aircraft_explode_3.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/aircraft_1.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/aircraft_explode_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/aircraft_explode_2.png" type="Texture" id=6]
+[ext_resource path="res://src/Player.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[node name="Player" type="Area2D"]
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "idle"
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 0, -61, 14, -41, 15, -22, 27, -7, 31, -19, 37, -14, 38, 4, 49, 15, 49, 24, 41, 24, 38, 31, 30, 32, 25, 24, 19, 22, 13, 31, -8, 31, -15, 23, -24, 26, -23, 29, -27, 33, -35, 33, -40, 25, -48, 25, -49, 15, -37, 4, -38, -12, -34, -17, -30, -18, -27, -16, -26, -6, -13, -23, -12, -42 )
+
+[node name="ShootPosition" type="Position2D" parent="."]
+position = Vector2( 0, -75 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.21
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
